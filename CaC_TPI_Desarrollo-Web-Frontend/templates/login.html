@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Café Central: Iniciar sesión</title>
+    <link rel="icon" href="/static/img/cafe-central.png" type="image/png">
+    <link rel="stylesheet" href="/static/css/login.styles.css">
+     <!-- Fontawesome icon -->
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous" />
+</head>
+<body>
+    <section>
+        <div class="login_container">
+            <div class="center-logo">
+            <img src="/static/img/logo-image.png" alt="Logo" class="logoCafe">
+            <h2>Café Central</h2>
+            </div>            
+            <form action="#">
+              <div class="field email-field">
+                <div class="input-field">
+                  <input type="email" placeholder="Correo electrónico" class="email" />
+                </div>
+                <span class="tooltip">Test-email: usuario@correo.com</span>
+                <span class="error email-error">
+                  <i class="fas fa-circle-exclamation error-icon"></i>
+                  <p class="error-text"></p>
+                </span>
+              </div>
+              <div class="field password-field">
+                <div class="input-field">
+                  <input type="password" placeholder="Contraseña" class="password" />
+                  <i class="fas fa-hide show-hide"></i>
+                </div>
+                <span class="tooltip">TestContraseña: usuario</span>
+                <span class="error password-error">
+                  <i class="fas fa-circle-exclamation error-icon"></i>
+                  <p class="error-text"></p>
+                </span>
+              </div>      
+              <div class="input-field button">
+                <button type="" class="submit-button">Acceder</button>
+              </div>
+            </form>
+          </div>
+    </section>
+    <script src="/static/js/login.js"></script>
+</body>
+</html>

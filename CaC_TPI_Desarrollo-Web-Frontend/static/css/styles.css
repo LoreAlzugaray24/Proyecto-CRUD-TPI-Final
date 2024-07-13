@@ -1,0 +1,708 @@
+/* Google Fonts - Poppins & Satisfy */
+@import url("https://fonts.googleapis.com/css2?family=Satisfy&display=swap");
+@import url("https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900");
+
+:root {
+  --primary-color: #191919;
+  --primary: #408cf9;
+  --white: #ffffff;
+  --sidebar-primary-hover: #2e2b43 /*#2b2b2f*/;
+  --sidebar-background: #141318;
+  --background: #f3f5f6;
+  --text-link: #ffffff;
+  --expand-button: #9d8171;
+
+  --search-background: #2b2b2f;
+
+  /* listado */
+  --bg-dark: #29263d;
+  --table-background: #29263d;
+  --th-background: #2e2b43;
+  --btn-primary: #fabc75; /*#ff9800;*/
+  --btn-close-del: #cd3100; /*#ff5722;*/
+  --btn-logout: #fa7575;
+  --text-color: #ffffff;
+  --gray: #a0a7b1;
+}
+
+body {
+  font-family: "Poppins", sans-serif;
+  font-size: 16px;
+  /*padding: 1rem;*/
+  height: 100%;
+  display: flex;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Panel Administrador
+  ---------------------*/
+.nav-sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  padding: 1.5rem 0.8rem;
+  border-top-right-radius: 1rem;
+  /*border-bottom-right-radius: 1.5rem;*/
+  user-select: none;
+  max-width: 13rem;
+  min-width: 4rem;
+  display: flex;
+  color: var(--text-color);
+  flex-direction: column;
+  background-color: var(--bg-dark);
+  transition: max-width 0.2s ease-in-out;
+}
+
+body.collapsed .nav-sidebar {
+  max-width: 5rem;
+  display: flex;
+}
+
+body.collapsed .hide {
+  position: absolute;
+  visibility: hidden;
+}
+
+/*? sidebar top */
+.nav-sidebar-top-wrapper {
+  display: flex;
+  background-color: var(--primary-color-light);
+}
+
+.nav-sidebar-top {
+  position: relative;
+  display: flex;
+  align-items: start;
+  justify-content: center;
+  flex-direction: column;
+  overflow: hidden;
+  height: 4rem;
+}
+
+.logo__wrapper {
+  display: flex;
+  align-items: center;
+  color: var(--text-link);
+  font-weight: 700;
+  text-decoration: none;
+  font-size: 1.25rem;
+  padding: 0 0.6rem;
+  gap: 0.75rem;
+}
+
+.logo-small {
+  height: 2rem;
+  width: 2rem;
+  overflow: hidden;
+  object-fit: cover;
+}
+
+.company-name {
+  white-space: nowrap;
+  font-family: "Satisfy", sans-serif;
+  font-weight: 400;
+  font-size: 1.4rem;
+}
+
+/*? menu links */
+.sidebar-links {
+  margin-top: 1rem;
+}
+
+.sidebar-links ul {
+  list-style-type: none;
+  position: relative;
+  display: flex;
+  row-gap: 0.5rem;
+  flex-direction: column;
+}
+
+.sidebar-links li {
+  color: var(--text-link);
+  min-width: 3rem;
+}
+
+.sidebar-links li svg {
+  stroke: var(--text-color);
+  min-width: 1.75rem;
+}
+
+.sidebar-links li a:hover {
+  background-color: var(--th-background);
+  /*border: 2px solid var(--expand-button);*/
+}
+
+.sidebar-links li a {
+  color: var(--text-link);
+  width: 100%;
+  padding-left: 0.6rem;
+  font-size: 0.85rem;
+  display: flex;
+  gap: 0.75rem;
+  border-radius: 0.75rem;
+  justify-content: start;
+  align-items: center;
+  min-height: 3.25rem;
+  text-decoration: none;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.sidebar-links li a .link {
+  overflow: hidden;
+  white-space: nowrap;
+  animation: fadeIn 0.2s ease-in-out;
+}
+
+.sidebar-links .active:hover {
+  background-color: var(--sidebar-primary-hover);
+}
+
+.sidebar-links .active {
+  text-decoration: none;
+  background-color: var(--sidebar-primary-hover);
+  color: var(--text-color);
+}
+
+.sidebar-links .active svg {
+  stroke: var(--text-color);
+}
+
+/* tooltip */
+.tooltip {
+  position: relative;
+}
+
+.tooltip .tooltip__content::after {
+  content: " ";
+  position: absolute;
+  top: 50%;
+  left: 0%;
+  margin-left: -10px;
+  margin-top: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: transparent var(--text-color) transparent transparent;
+}
+
+.tooltip .tooltip__content {
+  visibility: hidden;
+  background-color: var(--th-background);
+  color: var(--text-color);
+  text-align: center;
+  border-radius: 6px;
+  padding: 0.35rem 0.75rem;
+  position: absolute;
+  z-index: 4;
+  left: 3.5rem;
+}
+
+.collapsed .tooltip:hover .tooltip__content {
+  visibility: visible;
+}
+
+.collapsed .tooltip:focus .tooltip__content {
+  visibility: visible;
+}
+
+/* profile */
+.sidebar__profile {
+  /*display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-direction: row;*/
+  color: var(--text-link);
+  overflow-x: hidden;
+  min-height: 2.5rem;
+  margin-top: auto;
+}
+
+.avatar__wrapper {
+  position: relative;
+  display: flex;
+}
+
+.avatar {
+  display: block;
+  width: 3rem;
+  height: 3rem;
+  object-fit: cover;
+  cursor: pointer;
+  border-radius: 0.75rem;
+  border: 3px solid transparent;
+  transition: all 0.2s ease-in-out;
+}
+
+.avatar:hover {
+  border: 2px solid var(--expand-button);
+}
+
+.avatar__name {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  white-space: nowrap;
+  padding-left: 10px;
+}
+
+.user-name {
+  font-weight: 600;
+  text-align: left;
+  color: var(--text-link);
+  font-size: 0.8rem;
+}
+
+.email {
+  color: var(--text-link);
+  font-size: 0.65rem;
+}
+
+.logout {
+  /*margin-left: auto;*/
+  position: absolute;
+  right: 5px;
+  bottom: 18px;
+  cursor: pointer;
+}
+
+.logout svg {
+  color: var(--btn-logout);
+}
+
+/* Expand button */
+.expand-btn {
+  position: absolute;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  background-color: #9d817126; /*var(--expand-button);*/
+  z-index: 2;
+  right: 0.5rem;
+  top: 0.35rem;
+  width: 1.5rem;
+  height: 1.5rem;
+  border: none;
+  border-radius: 50%;
+}
+
+.expand-btn svg {
+  transform: rotate(-180deg);
+  stroke: var(--text-color);
+  width: 1rem;
+  height: 1rem;
+}
+
+body.collapsed .expand-btn svg {
+  transform: rotate(-360deg);
+}
+
+@keyframes fadeIn {
+  from {
+    width: 4rem;
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+    width: 100%;
+  }
+}
+
+/* Contenido principal de la App
+  -------------------------------*/
+#show__pages {
+  flex: 1; /* Ocupa todo el espacio disponible */
+  display: flex;
+  flex-direction: column; /* Asegura que los elementos dentro de main se apilen verticalmente */
+  margin-left: 12.2rem; /* Ancho inicial del sidebar */
+  transition: margin-left 0.2s ease-in-out; /* Transición para suavizar el desplazamiento */
+  min-height: 100vh; /* Asegurr que el main tenga al menos el alto de la pantalla */
+  overflow-x: hidden; /* Evitar scroll horizontal en main */
+}
+
+body.collapsed #show__pages {
+  margin-left: 5rem; /* Ancho del sidebar colapsado */
+}
+
+#show__pages iframe {
+  /* flex: 1; Ocupa todo el espacio disponible dentro del main */
+  display: block;
+  width: 100%; /* Ajustar iframe al 100% del ancho del main */
+  height: 100vh; /* Ajustar iframe al 100% del alto del main */
+  border: none; /* Quitar borde del iframe */
+  padding-left: 0.2rem;
+  margin: 0;
+}
+
+/* Tabla
+  -------*/
+.crud-prod {
+  /*border-radius: 1rem;*/
+  background: var(--table-background);
+  padding: 1.5rem;
+  overflow-x: overlay;
+  user-select: none;
+  color: var(--text-color);
+  min-height: 5rem;
+  height: 100vh;
+  width: 100%;
+}
+.crud-prod table {
+  margin-top: 1.5rem;
+  max-width: fit-content;
+  border-collapse: collapse;
+  width: 100%; /* Asegura que la tabla se expanda al tamaño del contenedor */
+}
+.crud-prod thead tr {
+  background: var(--th-background);
+}
+.crud-prod .caption {
+  display: flex;
+  justify-content: space-between;
+}
+.crud-prod .btn-oF {
+  background: none;
+  color: var(--text-color);
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.1rem;
+}
+.crud-prod .btn-oF:hover {
+  color: var(--btn-primary);
+}
+.crud-prod .btn-oF svg {
+  width: 1.6rem;
+  height: 1.6rem;
+  fill: var(--text-color);
+}
+.crud-prod .btn-oF svg:hover {
+  fill: var(--btn-primary);
+}
+.crud-prod th {
+  padding: 1.25rem 1rem;
+  font-size: 1rem;
+  font-weight: 700;
+  vertical-align: middle;
+}
+.crud-prod td {
+  padding: 1rem;
+  font-size: 0.8rem;
+  background: transparent;
+  color: var(--text-color);
+  vertical-align: middle;
+}
+.crud-prod tbody tr {
+  transition: all 0.2s;
+}
+.crud-prod tbody tr:hover {
+  background: var(--th-background);
+}
+tr .td-cod {
+  font-size: 0.85rem;
+  text-align: right;
+}
+tr .td-text {
+  text-align: left;
+}
+tr .td-name {
+  width: 10rem;
+}
+tr .td-cat {
+  text-align: center;
+}
+tr .td-precio {
+  font-size: 0.85rem;
+  text-align: right;
+  width: 7rem;
+}
+tr .td-precio::before {
+  content: "$ ";
+}
+tr .td-imgP img {
+  width: 4rem;
+  height: 3.5rem;
+  border-radius: 1rem;
+  object-fit: cover;
+  text-align: center;
+  font-size: 0.6rem;
+}
+tr .td-acciones {
+  margin: 1rem auto;
+}
+tr .td-acciones .td_btns {
+  display: flex;
+  justify-content: space-evenly;
+  gap: 0.5rem;
+}
+tr .td-acciones .td-btn {
+  flex-direction: column;
+  background: transparent;
+  border: none;
+}
+tr .td-acciones .td-btn svg {
+  /*display: inline-block;*/
+  height: 1.5rem;
+  width: 1.5rem;
+  fill: var(--text-color);
+  cursor: pointer;
+}
+tr .td-acciones .td-btn .i-edit:hover {
+  fill: var(--btn-primary);
+}
+tr .td-acciones .td-btn .i-delete:hover {
+  fill: var(--btn-logout);
+}
+
+/* Formularios
+  -------------*/
+.modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  max-height: 90%; /* Tamaño máximo del modal */
+  width: 30rem;
+  background-color: #fefefe;
+  padding: 20px;
+  border: 1px solid #888;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transform: translate(-50%, -50%);
+  overflow-y: overlay; /* Permite hacer scroll si el contenido excede el tamaño del modal */
+}
+.modal::backdrop {
+  background: rgb(0 0 0 / 0.5);
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 999; /* Z-index debe ser menor que el modal para que se muestre detrás */
+}
+.btn-cF {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+}
+.btn-cF svg {
+  height: 1.6rem;
+  width: 1.6rem;
+  fill: var(--table-background);
+}
+.btn-cF svg:hover {
+  fill: var(--btn-close-del);
+}
+.modal h1,
+.modal h2 {
+  font-weight: 800;
+  font-size: 1.6rem;
+  color: var(--th-background);
+  text-align: center;
+  margin: 10px auto;
+}
+.form-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%; /* Ajusta el ancho al 100% del modal */
+  margin: 0 auto; /* Centra horizontalmente el contenido */
+  padding: 0 10px;
+  gap: 10px;
+}
+/*.input-label {
+  margin-bottom: 5px;
+  font-size: 0.8rem;
+}*/
+input[type="text"],
+input[type="number"],
+input[type="file"],
+textarea,
+select {
+  width: 100%;
+  padding: 10px;
+  /*margin-bottom: 10px;*/
+  border: 1px solid #cccccc;
+  border-radius: 5px;
+  font-family: "Poppins", sans-serif;
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+.input-titulo {
+  text-align: center;
+}
+input[type="number"] {
+  text-align: right;
+}
+/* Ocultar las flechas en los inputs de tipo number */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+  opacity: 1;
+}
+input[type="number"] {
+  -moz-appearance: textfield; /* Firefox */
+}
+input[type="number"] {
+  width: 5rem;
+  display: flex;
+  align-self: self-end;
+}
+#precioModificar,
+#precioProducto {
+  text-align: center;
+}
+.formM-img {
+  max-width: 150px;
+  border-radius: 1rem;
+  object-fit: cover;
+  margin: 5px;
+  display: none;
+}
+.add-imagen {
+  display: none;
+}
+.label-imagen {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 5px;
+  width: 100%;
+  text-align: center;
+}
+.labelFile {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: center;
+  align-items: center;
+  width: 90%;
+  text-align: left;
+}
+.label-imagen,
+.labelFile {  
+  border: 1.2px dashed #ccc;
+  padding: 5px;
+  cursor: pointer;
+}
+.label-imagen svg,
+.labelFile svg {
+  fill-opacity: 0.85;
+}
+.label-imagen svg:hover,
+.label-imagen svg:active,
+.labelFile svg:hover,
+.labelFile svg:active {
+  fill: var(--th-background);
+  fill-opacity: 0.85;
+}
+.label-imagen p, .labelFile p {
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+.labelImg-p {  
+  font-size: 0.7rem;
+  font-weight: 500;
+  overflow: hidden;
+  padding: 5px;
+  margin-right: 5px;
+}
+.labelFile p {
+  width: 15rem;
+}
+.label-imagen:hover,
+.label-imagen:active,
+.labelFile:hover,
+.labelFile:active {
+  border: 2px dashed var(--table-background);
+}
+select {
+  margin-bottom: 15px;
+}
+.btn-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 80%;
+  gap: 1.5rem;
+}
+button[type="submit"],
+button[type="button"] {
+  width: 10rem;
+  padding: 10px;
+  background-color: var(--table-background);
+  color: var(--text-color);
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+button[type="submit"]:hover {
+  background-color: #34304e;
+}
+button[type="button"] {
+  background-color: var(--btn-close-del);
+}
+button[type="button"]:hover {
+  background-color: #db3e0d;
+}
+
+/* Formulario A
+  --------------*/
+
+/* Formulario M
+  --------------*/
+.backdrop {
+  display: none;
+  background: rgb(0 0 0 / 0.5);
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 999; /* Z-index debe ser menor que el modal para que se muestre detrás */
+}
+.formularioM {
+  display: none; /* Por defecto oculto */
+}
+
+/* Scrollbar 
+  -----------*/
+/* Firefox (descomentar para que funcione en Firefox, ¡aunque otras propiedades no funcionarán!) */
+* {
+  scrollbar-width: auto;
+  scrollbar-color: #2e2b43 #d9d8dd;
+}
+
+/* Chrome, Edge and Safari */
+*::-webkit-scrollbar {
+  /*height: 14px;*/
+  width: 14px;
+}
+*::-webkit-scrollbar-track {
+  background-color: #e5e4ec;
+}
+*::-webkit-scrollbar-track:hover,
+*::-webkit-scrollbar-track:active {
+  background-color: #d9d8dd;
+}
+
+*::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background-color: var(--table-background);
+  border: 2px solid #e5e4ec;
+}
+*::-webkit-scrollbar-thumb:hover {
+  background-color: var(--th-background);
+}
+*::-webkit-scrollbar-thumb:active {
+  background-color: #34304e;
+}

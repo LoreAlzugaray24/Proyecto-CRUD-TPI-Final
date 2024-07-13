@@ -1,0 +1,180 @@
+/* Google Fonts - Poppins */
+@import url("https://fonts.googleapis.com/css2?family=Satisfy&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+body {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(180deg, #2e2b43 75%, #29263d 25%);
+}
+.login_container {
+  position: relative;
+  max-width: 370px;
+  width: 100%;
+  padding: 25px;
+  border-radius: 8px;
+  background-color: #fff;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+}
+.login_container .center-logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 20rem;
+}
+img.logoCafe {
+    width: 50px;
+    margin-top: 8px;
+}
+.login_container h2 {
+  font-family: "Satisfy", sans-serif;
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: #2e2b43;
+}
+.login_container form {
+  margin-top: 30px;
+}
+
+form .field {
+  margin-bottom: 20px;
+  padding-bottom: 8px;  
+}
+
+form .input-field {
+  position: relative;
+  height: 55px;
+  width: 100%;
+}
+
+.tooltip {
+  position: absolute;
+  left: calc(100% + 10px); /* Coloca el tooltip a la derecha del input */
+  transform: translateY(-105%);
+  background-color: rgba(0, 0, 0, 0.8);
+  color: #fff;
+  padding: 5px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+.tooltip.active {
+  opacity: 1;
+  pointer-events: none;
+}
+.tooltip::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: -8px;
+  transform: translateY(-50%);
+  border-width: 4px;
+  border-style: solid;
+  border-color: transparent rgba(255, 255, 255, 0.8) transparent transparent;
+}
+.field:hover .tooltip {
+  opacity: 1;
+}
+.invalid .tooltip {
+  opacity: 1;
+}
+
+.input-field input,
+.input-field button {
+  height: 100%;
+  width: 100%;
+  outline: none;
+  border: none;
+  border-radius: 8px;
+  padding: 0 15px;
+  border: 1px solid #d1d1d1;
+}
+
+/* Estilo por defecto para input */
+.input-field input {  
+  transition: border-color 0.3s ease;
+}
+
+/* Estilo cuando el input está enfocado */
+.input-field input:focus {
+  border: 1.5px solid #29263d;
+  outline: none; /* Quitar el outline predeterminado del navegador */
+}
+
+.fa-show:before {
+  content: "\f06e";
+}
+
+.fa-hide:before {
+  content: "\f070";
+}
+
+.invalid input {
+  border-color: #d93025;
+}
+
+.input-field .show-hide {
+  position: absolute;
+  right: 13px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 18px;
+  color: #919191;
+  cursor: pointer;
+  padding: 3px;
+}
+
+.field .error {
+  display: flex;
+  align-items: center;
+  margin-top: 6px;
+  color: #d93025;
+  font-size: 13px;
+  display: none;
+}
+
+.invalid .error {
+  display: flex;
+  gap: 5px;
+}
+
+.fa-circle-exclamation:before {
+  content: "\f06a";
+}
+
+.error .error-icon {
+  margin-left: 6px;
+  font-size: 14px;
+}
+
+.button {
+  margin: 25px 0 6px;
+}
+
+.button button {
+  color: #fff;
+  font-size: 16px;
+  font-weight: 400;
+  background-color: #29263d;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.button button:hover {
+  background-color: #33304c;
+}
+
+.button button:active {
+  transform: scale(0.95);
+}

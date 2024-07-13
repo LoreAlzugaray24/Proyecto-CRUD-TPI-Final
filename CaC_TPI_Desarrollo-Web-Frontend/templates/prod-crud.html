@@ -1,0 +1,134 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de productos</title>
+    <link rel="icon" href="/static/img/cafe-central.png" type="image/png">
+    <link rel="stylesheet" href="/static/css/styles.css">
+</head>
+
+<body>
+    <section class="crud-prod">
+        <div class="caption">
+            <h2>Lista de Productos</h2>
+            <button class="btnOpen-formA btn-oF">
+                <svg xmlns="http://www.w3.org/2000/svg" height="48px" viewBox="0 -960 960 960" width="48px"
+                    fill="#000000">
+                    <path d="M450-450H200v-60h250v-250h60v250h250v60H510v250h-60v-250Z" />
+                </svg>
+                Agregar
+            </button>
+            <dialog id="add-prod-form" class="modal">
+                <h1>Agregar Producto al Inventario</h1>
+                <span class="btnClose-formA btn-cF" title="Cerrar" onclick="cancelarSeleccionImagenFormA(); cerrarFormA();">
+                    <svg xmlns="http://www.w3.org/2000/svg" height="48px" viewBox="0 -960 960 960" width="48px"
+                        fill="#000000">
+                        <path
+                            d="m249-207-42-42 231-231-231-231 42-42 231 231 231-231 42 42-231 231 231 231-42 42-231-231-231 231Z" />
+                    </svg>
+                </span>
+                <!--enctype="multipart/form-data" es necesario para enviar archivos al backend-->
+                <form id="formularioA" class="form-content" enctype="multipart/form-data">
+                    <label for="nombreProducto" class="input-label"></label>
+                    <input type="text" id="nombreProducto" class="input-titulo" name="nombre" placeholder="Nombre del producto" required>
+                    <label for="descripcionProducto" class="input-label"></label>
+                    <textarea id="descripcionProducto" name="descripcion" rows="3" cols="5" placeholder="Descripción"
+                        required></textarea>
+                    <label for="precioProducto" class="input-label"></label>
+                    <input type="number" step="0.01" id="precioProducto" name="precio" placeholder="Precio"  min="0" max="99999" required>
+                    <label for="imagenProducto" class="input-label label-imagen"><span><svg xmlns="http://www.w3.org/2000/svg" height="48px" viewBox="0 -960 960 960" width="48px" fill="#5f6368"><path d="M180-120q-24.75 0-42.37-17.63Q120-155.25 120-180v-600q0-24.75 17.63-42.38Q155.25-840 180-840h409v60H180v600h600v-408h60v408q0 24.75-17.62 42.37Q804.75-120 780-120H180Zm520-498v-81h-81v-60h81v-81h60v81h81v60h-81v81h-60ZM240-282h480L576-474 449-307l-94-124-115 149Zm-60-498v600-600Z"/></svg></span><p id="mensaje-archivoFA" class="labelImg-p">Haga clic aquí para seleccionar la imagen del producto.</p><span id="nombre-archivoFA" class="labelImg-p"></span></label>
+                    <input type="file" id="imagenProducto" class="add-imagen" name="imagen" accept="image/jpeg, image/png, image/webp">
+                    <label for="categoriaProducto" class="input-label"></label>
+                    <select id="categoriaProducto" class="input-label" name="categoria" required>
+                        <option value="">Seleccione una categoría...</option>
+                        <option value="Café de especialidad">Café de especialidad</option>
+                        <option value="Desayuno y Mediatarde">Desayuno y Mediatarde</option>
+                        <option value="Almuerzos y Cenas">Almuerzos y Cenas</option>
+                    </select>
+                    <button type="submit" id="Add-datosProd">Agregar</button>
+                </form>
+            </dialog>
+        </div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Código</th>
+                    <th>Nombre</th>
+                    <th>Descripción</th>
+                    <th>Precio</th>
+                    <th>Imagen</th>
+                    <th>Categoría</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody id="tablaProductos">
+                <!-- Test <tr> - Front-End - Dejar comentado al conectar el servidor-->
+               <!-- <tr>
+                    <td id="codigo" class="td-cod">7548</td>
+                    <td class="td-text td-name">Lorem ipsum dolor sit.</td>
+                    <td class="td-text">Voluptate a beatae in nesciunt ratione error animi autem neque odit aperiam aut
+                        odio at culpa eos voluptatem quia, saepe aliquam deserunt?</td>
+                    <td class="td-precio">2584</td>
+                    <td class="td-imgP"><img src="/static/img/S3-homeCooking1.jpg" alt="Comidas caceras"></td>
+                    <td class="td-cat">Desayuno y Merienda</td>
+                    <td class="td-acciones"><div class="td_btns"><button id="btn-editar" class="btnOpen-formM btn-oF btn-edit td-btn"
+                            title="Editar" onclick="obtenerDatosProd(this)"><svg xmlns="http://www.w3.org/2000/svg"
+                                class="i-edit" height="48px" viewBox="0 -960 960 960" width="48px" fill="#5f6368">
+                                <path
+                                    d="M180-180h44l472-471-44-44-472 471v44Zm-60 60v-128l575-574q8-8 19-12.5t23-4.5q11 0 22 4.5t20 12.5l44 44q9 9 13 20t4 22q0 11-4.5 22.5T823-694L248-120H120Zm659-617-41-41 41 41Zm-105 64-22-22 44 44-22-22Z" />
+                            </svg></button>
+                        <button id="btn-eliminar" class="btn-delete td-btn" title="Eliminar"
+                            onclick="quitarProducto(this)"><svg xmlns="http://www.w3.org/2000/svg" class="i-delete"
+                                height="48px" viewBox="0 -960 960 960" width="48px" fill="#5f6368">
+                                <path
+                                    d="M261-120q-24.75 0-42.37-17.63Q201-155.25 201-180v-570h-41v-60h188v-30h264v30h188v60h-41v570q0 24-18 42t-42 18H261Zm438-630H261v570h438v-570ZM367-266h60v-399h-60v399Zm166 0h60v-399h-60v399ZM261-750v570-570Z" />
+                            </svg>
+                        </button></div>
+                    </td>
+                </tr> -->
+            </tbody>
+        </table>
+        <div id="backdrop" class="form-Mod backdrop">
+            <dialog id="datos-producto" class="modal formularioM">
+                <h2>Modificar Datos del Producto</h2>
+                <form id="form-guardar-cambios" class="form-content" enctype="multipart/form-data">
+                    <label for="nombreModificar" class="input-label"></label>
+                    <input type="text" id="nombreModificar" class="input-titulo" name="nombre" placeholder="Nombre del producto">
+                    <label for="descripcionModificar" class="input-label"></label>
+                    <textarea id="descripcionModificar" name="descripcion" rows="3" cols="5"
+                        placeholder="Descripción"></textarea>
+                    <label for="precioModificar" class="input-label"></label>
+                    <input type="number" step="0.01" id="precioModificar" clase="input-precio" name="precio" min="0" max="99999" placeholder="Precio">
+                    <!-- Imagen actual del producto - Debe comentarse al subirse al servidor-->
+                    <img id="imagen-actual" class="formM-img">
+                    <!-- Vista previa de la nueva imagen seleccionada -->
+                    <img id="imagen-vista-previa" class="formM-img">
+                    <!-- Input para nueva imagen -->
+                    <label for="nuevaImagen" class="input-label labelFile"><span><svg xmlns="http://www.w3.org/2000/svg" height="48px" viewBox="0 -960 960 960" width="48px" fill="#5f6368"><path d="M180-120q-24.75 0-42.37-17.63Q120-155.25 120-180v-600q0-24.75 17.63-42.38Q155.25-840 180-840h409v60H180v600h600v-408h60v408q0 24.75-17.62 42.37Q804.75-120 780-120H180Zm520-498v-81h-81v-60h81v-81h60v81h81v60h-81v81h-60ZM240-282h480L576-474 449-307l-94-124-115 149Zm-60-498v600-600Z"/></svg></span><p id="mensaje-archivoFM">Haga clic aquí para cambiar la imagen del producto</p><span id="nombre-archivoFM" class="labelImg-p"></span></label>
+                    <input type="file" id="nuevaImagen" class="add-imagen" name="imagen" accept="image/jpeg, image/png, image/webp">                    
+                    <label for="catModificar" class="input-label"></label>
+                    <select id="catModificar" name="categoria">
+                        <option value="">Selecciona una categoría...</option>
+                        <option value="Café de especialidad">Café de especialidad</option>
+                        <option value="Desayuno y Mediatarde">Desayuno y Mediatarde</option>
+                        <option value="Almuerzos y Cenas">Almuerzos y Cenas</option>
+                    </select>
+                    <div class="btn-row">
+                        <button class="btn-Mod" type="submit">Guardar Cambios</button>
+                        <button class="btnClose-formM btn-cancel" type="button" onclick="cancelarSeleccionImagen()">Cancelar</button>
+                    </div>
+                </form>
+            </dialog>
+        </div>
+    </section>
+    <script src="/static/js/prod-listar.js"></script>
+    <script src="/static/js/prod-altas.js"></script>
+    <script src="/static/js/prod-modificar.js"></script>
+    <script src="/static/js/prod-eliminar.js"></script>
+    <script src="/static/js/formularios.js"></script>
+</body>
+
+</html>

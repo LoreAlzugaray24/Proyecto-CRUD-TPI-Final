@@ -1,0 +1,6 @@
+
+/error404   /templates/error404.html
+
+/login   /templates/login.html
+
+/prod-crud   /templates/prod-crud.html
